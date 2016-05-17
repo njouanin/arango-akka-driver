@@ -28,6 +28,12 @@ class ArangoConfigure(hostList: List[ArangoHost], user: String, password: String
 }
 
 object ArangoConfigure {
+
+  import scalaz.State
+  import scalaz.State._
+
+  type ArangoConfigureState[A] = State[ArangoConfigure, A]
+
   def apply(): ArangoConfigure = {
     val config = ConfigFactory.load()
     for (host <- config.getStringList("arangodb.hosts")) {
